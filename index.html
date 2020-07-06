@@ -71,11 +71,12 @@
 
     const input = tf.tensor2d([5.8, 2.7, 5.1, 1.9], [1, 4]);
     const prediction = model.predict(input);
-    alert(prediction);
+    alert("Prediction:" + prediction);
 
     const predictionWithArgMax = model.predict(input).argMax(-1).dataSync();
 
-    alert(predictionWithArgMax);
+    alert("Prediction with ArgMax: " + predictionWithArgMax);
+    alert("Iris Class: " + IRIS_CLASSES[predictionWithArgMax]);
 
     const xData = xTest.dataSync();
     const yTrue = yTest.argMax(-1).dataSync();
