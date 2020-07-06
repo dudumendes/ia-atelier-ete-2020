@@ -35,6 +35,12 @@ async function run() {
 
 	const model = createModel();
 	tfvis.show.modelSummary({name: 'Model Summary'}, model);
+
+	const tensorData = convertToTensors(data);
+	const {inputs, labels} = tensorData;
+
+	await trainModel(model, inputs, labels);
+	console.log("Training done")
 }
 
 function createModel() {
@@ -79,6 +85,28 @@ function convertToTensors(data) {
 	
 }
 
+async function trainModel(model, inputs, labels) {
 
+	model.compile({
+		optimizer: tf.train.adam(),
+		loss: tf.losses.meanSquaredError,
+		metrics: ['mse']
+	});
+
+	const batchSize = 28;
+	const epochs = 50;
+
+	return await model.fit(inputs, labels, {
+		batchSize,
+		epochs,
+		shuffle: true,
+		callbacks: tfvis.show.fitCallbacks(
+			{name: 'Training Performance'},
+			['loss', 'mse'],
+			{height: 200, callbacks: ['onEpochEnd']}
+		),
+	})
+
+}
 
 document.addEventListener('DOMContentLoaded', run)
