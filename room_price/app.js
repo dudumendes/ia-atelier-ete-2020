@@ -41,6 +41,8 @@ async function run() {
 
 	await trainModel(model, inputs, labels);
 	console.log("Training done")
+
+	testModel(model, data, tensorData);
 }
 
 function createModel() {
@@ -108,5 +110,43 @@ async function trainModel(model, inputs, labels) {
 	})
 
 }
+
+function testModel(model, inputData, normalizationData) {
+	const {inputMax, inputMin, labelMin, labelMax} = normalizationData;
+
+	const [xs, preds] = tf.tidy(() => {
+		const xs = tf.linspace(0, 1, 100);
+		const preds = model.predict(xs.reshape([100, 1]));
+
+		const unNormXs = xs
+						.mul(inputMax.sub(inputMin))
+						.add(inputMin);
+		
+		const unNormPredXs = xs
+						.mul(labelMax.sub(labelMin))
+						.add(labelMin);
+		
+		return [unNormXs.dataSync(), unNormPredXs.dataSync()];
+	});
+
+	const predictedPoints = Array.from(xs).map((val, i) => {
+		return {x: val, y: preds[i]}
+	})
+	
+	const originalPoints = inputData.map(d => ({
+		x: d.rooms, y: d.price,
+	}))
+	
+	tfvis.render.scatterplot(
+		{name: "Model Predictions vs Original Data"},
+		{values: [originalPoints, predictedPoints], series: ['original', 'predicted']},
+		{
+			xLabel: 'N.o of rooms',
+			yLabel: 'Price', 
+			height: 300
+		}
+	);
+}
+
 
 document.addEventListener('DOMContentLoaded', run)
