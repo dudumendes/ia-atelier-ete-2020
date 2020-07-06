@@ -71,8 +71,8 @@ function getIrisData(testSplit) {
 			targetByClass[target].push(target);
 		}
 
-		console.log(dataByClass);
-		console.log(targetByClass);
+		// console.log(dataByClass);
+		// console.log(targetByClass);
 
 		const xTrains = [];
 		const yTrains = [];
@@ -93,8 +93,8 @@ function getIrisData(testSplit) {
 		const test1 = xTrains;
 		const test2 = tf.concat(xTrains, concatAxis);
 
-		console.log(test1);
-		console.log(test2);
+		// console.log(test1);
+		// console.log(test2);
 
 		return [
 			tf.concat(xTrains, concatAxis), tf.concat(yTrains, concatAxis),
