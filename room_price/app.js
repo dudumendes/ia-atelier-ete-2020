@@ -1,16 +1,16 @@
 console.log('Hi, Tensor Flow');
 
 async function getData() {
-	const houseDdataReq = await fetch('https://raw.githubusercontent.com/meetnandu05/ml1/master/house.json');
-	const houseData = await houseDdataReq.json();
-
-	const cleaned = houseData.map( house => ({
-		price: house.price,
-		rooms: house.AvgAreaNumberofRooms,
-	})).filter(house => (house.price != null && house.rooms != null));
-
+	const houseDataReq = await fetch('https://raw.githubusercontent.com/meetnandu05/ml1/master/house.json');  
+	const houseData = await houseDataReq.json();  
+	const cleaned = houseData.map(house => ({
+	  price: house.Price,
+	  rooms: house.AvgAreaNumberofRooms,
+	}))
+	.filter(house => (house.price != null && house.rooms != null));
+  
 	return cleaned;
-}
+  }
 
 async function run() {
 	// Load and plot the original input data we are going to train on
