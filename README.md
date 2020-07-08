@@ -1,11 +1,16 @@
 # Machine Learning Experiences
-Some experiences using JS Tensor Flow
+Some experiences using JavaScript and Python Tensor Flow
 
-## Iris folder
+## JavaScript Folder
+
+### Iris folder
 The classic machine to Iris dataset
 
-## Rooms/Prices Folder
+### Rooms/Prices Folder
 An example with prices for a rental
 
-## Instructions
+### Instructions
 Run index of each folder in a browser
+
+## Python Folder
+Comming soon...
