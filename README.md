@@ -13,4 +13,5 @@ An example with prices for a rental
 Run index of each folder in a browser
 
 ## Python Folder
-Comming soon...
+You need to have Python and TensorFlow installed.
+Detais on installing them are here: https://www.tensorflow.org/install/pip
